@@ -6,16 +6,21 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 
 import com.xenon.core.framework.Xenon;
 
+import action.core.ActionPerformer;
+
 public class PageObjects extends Xenon {
+	ActionPerformer actions = new ActionPerformer(driver);
 
 	public void login(String username, String password) {
-
+		
 		// setting timeout to check if already logged in
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
@@ -270,6 +275,10 @@ public class PageObjects extends Xenon {
 		element.visibilityOfElementLocated(By.xpath("//button[@title='Save']"));
 		report.logs("Click On Save", "---", "PASS", "createLeadFromCampaign", screenShotType.BROWSER);
 		element.click(By.xpath("//button[@title='Save']"));
+		timer.pause(5);
+		if(element.isDisplayed(By.xpath("//button[@title='Save']"))) {
+			element.click(By.xpath("//button[@title='Save']"));
+		}
 		// element.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'modal-footer
 		// slds-modal__footer')]//span[contains(text(),'Save')]"));
 		timer.pause(3);
@@ -373,6 +382,43 @@ public class PageObjects extends Xenon {
 
 		element.click(By.xpath("(//span[contains(text(),'Save')])[2]"));
 		report.logs("Added products to the Quote","", "PASS", "Add Line Items To The Quote", screenShotType.BROWSER);
+		
+	}
+	
+	public void verificationCheck(String leadName)
+	{
+		By newLead = By.xpath("//button[text()= 'Go to Leads']");
+		By searchInput = By.xpath("//input[@name='Lead-search-input']");
+		By searchedResult = By.xpath("(//a[contains(@title, '"+leadName+"')])[1]");
+
+		
+		
+		try {
+			
+			element.visibilityOfElementLocated(newLead);
+			report.logs("New Lead Button","---", "PASS", "verificationCheck", screenShotType.BROWSER);
+			actions.click(newLead);
+			element.visibilityOfElementLocated(searchInput);
+			report.logs("Search input","---", "PASS", "verificationCheck", screenShotType.BROWSER);
+			actions.clearFieldAndEnterText(searchInput, leadName).clearFieldAndEnterText(searchInput, Keys.ENTER);
+			
+			timer.pageLoad();
+			timer.pause(5);
+			
+			if(!element.isDisplayed(searchedResult)) {
+				report.logs("","---", "FAIL", "verificationCheck", screenShotType.BROWSER);
+				Assert.fail("Searched Result is not available");
+			}
+			report.logs("Search input","---", "PASS", "verificationCheck", screenShotType.BROWSER);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			report.logs("Error","---", "FAIL", "verificationCheck", screenShotType.BROWSER);
+			Assert.fail("Error in verification");
+		}
+		
+		
 		
 	}
 
