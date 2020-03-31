@@ -6,6 +6,9 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
 
 import com.xenon.core.framework.Xenon;
 
@@ -17,7 +20,7 @@ public class PageObjects extends Xenon {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 		try {
-
+			
 			driver.get("https://login.salesforce.com/");
 
 			timer.pageLoad();
@@ -158,25 +161,25 @@ public class PageObjects extends Xenon {
 
 		element.elementToBeClickable(By.xpath("//div[text()='New']/.."));
 		element.click(By.xpath("//div[text()='New']/.."));
-		report.logs("Clicked on New", "Click", "PASS", "Select template", screenShotType.BROWSER);
+		report.logs("Clicked on New", "Click", "PASS", "createCampaign", screenShotType.BROWSER);
 		timer.pageLoad();
 
 		textbox.setValue(By.xpath("//span[contains(text(),'Campaign Name')]/parent::label/following-sibling::input"),
 				campaignName);
-		report.logs("Entered campaign name", campaignName, "PASS", "Select template", screenShotType.BROWSER);
+		report.logs("Entered campaign name", campaignName, "PASS", "createCampaign", screenShotType.BROWSER);
 
 		driver.findElement(By.xpath("//span[contains(text(),'Active')]/parent::label/following-sibling::input"))
 				.click();
-		report.logs("Selected campaign status", "Active", "PASS", "Select template", screenShotType.BROWSER);
+		report.logs("Selected campaign status", "Active", "PASS", "createCampaign", screenShotType.BROWSER);
 
 		driver.findElement(By.xpath("//span[contains(text(),'Type')]/../following-sibling::div//a")).click();
-		report.logs("Selecting conference type", "Active", "PASS", "Select template", screenShotType.BROWSER);
+		report.logs("Selecting conference type", "Active", "PASS", "createCampaign", screenShotType.BROWSER);
 
 		driver.findElement(By.xpath("//a[contains(text(),'" + confType + "')]")).click();
-		report.logs("Selecting conference type", confType, "PASS", "Select template", screenShotType.BROWSER);
+		report.logs("Selecting conference type", confType, "PASS", "createCampaign", screenShotType.BROWSER);
 
 		driver.findElement(By.xpath("//span[contains(text(),'Status')]/../following-sibling::div//a")).click();
-		report.logs("Selecting status", "In Progress", "PASS", "Select template", screenShotType.BROWSER);
+		report.logs("Selecting status", "In Progress", "PASS", "createCampaign", screenShotType.BROWSER);
 
 		driver.findElement(By.xpath("//a[contains(text(),'" + status + "')]")).click();
 
@@ -197,24 +200,27 @@ public class PageObjects extends Xenon {
 		textbox.setValue(By.xpath(
 				"//span[contains(text(),'Expected Revenue in Campaign')]/parent::label/following-sibling::input"),
 				expectedRevenue);
-		report.logs("Entered expected revenue", expectedRevenue, "PASS", "Select template", screenShotType.BROWSER);
+		report.logs("Entered expected revenue", expectedRevenue, "PASS", "createCampaign", screenShotType.BROWSER);
 
 		textbox.setValue(
 				By.xpath("//span[contains(text(),'Budgeted Cost in Campaign')]/parent::label/following-sibling::input"),
 				budgetedCost);
-		report.logs("Entered Budgeted Cost in Campaign", budgetedCost, "PASS", "Select template",
+		report.logs("Entered Budgeted Cost in Campaign", budgetedCost, "PASS", "createCampaign",
 				screenShotType.BROWSER);
 
 		textbox.setValue(
 				By.xpath("//span[contains(text(),'Actual Cost in Campaign')]/parent::label/following-sibling::input"),
 				actualCost);
-		report.logs("Entered Actual Cost in Campaign", "3500", "PASS", "Select template", screenShotType.BROWSER);
+		report.logs("Entered Actual Cost in Campaign", "3500", "PASS", "createCampaign", screenShotType.BROWSER);
 
 		textbox.setValue(
 				By.xpath("//span[contains(text(),'Expected Response')]/parent::label/following-sibling::input"),
 				expectedReturn);
-		report.logs("Entered Expected Response", "90", "PASS", "Select template", screenShotType.BROWSER);
-
+		report.logs("Entered Expected Response", "90", "PASS", "createCampaign", screenShotType.BROWSER);
+		timer.pause(3);
+		timer.pause(3);
+		element.visibilityOfElementLocated(By.xpath("(//span[text()='Save']/..)[2]"));
+		report.logs("Save Btn", "---", "PASS", "createCampaign", screenShotType.BROWSER);
 		element.click(By.xpath("(//span[text()='Save']/..)[2]"));
 		// element.invisibilityOfElementLocated(By.xpath("(//span[text()='Save']/..)[2]"));
 
@@ -224,12 +230,16 @@ public class PageObjects extends Xenon {
 			String mobile, String companyName) {
 		timer.pause(5);
 
-		element.elementToBeClickable(By.xpath("//a[contains(@title,'Show 8 more actions')]"));
-		element.click(By.xpath("//a[contains(@title,'Show 8 more actions')]"));
-		report.logs("Entered Actual Cost in Campaign", "3500", "PASS", "Select template", screenShotType.BROWSER);
+//		element.elementToBeClickable(By.xpath("//a[contains(@title,'Show 8 more actions')]"));
+//		element.click(By.xpath("//a[contains(@title,'Show 8 more actions')]"));
+//		report.logs("Entered Actual Cost in Campaign", "3500", "PASS", "Select template", screenShotType.BROWSER);
 
-		element.elementToBeClickable(By.xpath("//a[contains(@title,'New Lead')]"));
-		element.click(By.xpath("//a[contains(@title,'New Lead')]"));
+		driver.get("https://ap4.lightning.force.com/lightning/o/Lead/list?filterName=Recent");
+		timer.pageLoad();
+		timer.pause(3);
+		element.elementToBeClickable(By.xpath("(//a[contains(@title,'New')])[1]"));
+		report.logs("Click New Button", "---", "PASS", "createLeadFromCampaign", screenShotType.BROWSER);
+		element.click(By.xpath("(//a[contains(@title,'New')])[1]"));
 
 		element.elementToBeClickable(By.xpath("//a[contains(text(),'--None--')]"));
 		element.click(By.xpath("//a[contains(text(),'--None--')]"));
@@ -254,30 +264,37 @@ public class PageObjects extends Xenon {
 		element.elementToBeClickable(By.xpath("//span[contains(text(),'Company')]/../following-sibling::input"));
 		driver.findElement(By.xpath("//span[contains(text(),'Company')]/../following-sibling::input"))
 				.sendKeys(companyName);
-
-		element.click(
-				By.xpath("//div[contains(@class,'modal-footer slds-modal__footer')]//span[contains(text(),'Save')]"));
+		report.logs("Details Entered", "---", "PASS", "createLeadFromCampaign", screenShotType.BROWSER);
+		timer.pause(3);
+		timer.pause(3);
+		element.visibilityOfElementLocated(By.xpath("//button[@title='Save']"));
+		report.logs("Click On Save", "---", "PASS", "createLeadFromCampaign", screenShotType.BROWSER);
+		element.click(By.xpath("//button[@title='Save']"));
 		// element.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'modal-footer
 		// slds-modal__footer')]//span[contains(text(),'Save')]"));
+		timer.pause(3);
 		timer.pause(3);
 
 	}
 
 	public void convertLeadToOpportunity(String leadName) {
 		
-		element.elementToBeClickable(By.xpath("//div[contains(text(),'" + leadName + "')]/.."));
-		element.click(By.xpath("//div[contains(text(),'" + leadName + "')]/.."));
+		element.visibilityOfElementLocated(By.xpath("//div[contains(text(),'" + leadName + "')]/.."));
+		report.logs("Lead Name", "---", "PASS", "convertLeadToOpportunity", screenShotType.BROWSER);
+		//element.click(By.xpath("//div[contains(text(),'" + leadName + "')]/.."));
 
 		element.elementToBeClickable(By.xpath("//div[contains(text(),'Convert')]/.."));
+		report.logs("Convert Button", "---", "PASS", "convertLeadToOpportunity", screenShotType.BROWSER);
 		element.click(By.xpath("//div[contains(text(),'Convert')]/.."));
 
 		element.elementToBeClickable(By
 				.xpath("//div[contains(@class,'modal-footer slds-modal__footer')]//span[contains(text(),'Convert')]"));
+		report.logs("PopUp Convert Confirmation", "---", "PASS", "convertLeadToOpportunity", screenShotType.BROWSER);
 		element.click(By
 				.xpath("//div[contains(@class,'modal-footer slds-modal__footer')]//span[contains(text(),'Convert')]"));
 
 		if (element.isDisplayed(By.xpath("//*[contains(text(),'Your lead has been converted')]"))) {
-			report.logs("Lead successfully converted to opportunity", "3500", "PASS", "Select template",
+			report.logs("Lead successfully converted to opportunity", "---", "PASS", "convertLeadToOpportunity",
 					screenShotType.BROWSER);
 		}
 
@@ -285,7 +302,9 @@ public class PageObjects extends Xenon {
 				&& element.isDisplayed(By.xpath("(//div[contains(@class,'containerConvertedItem')])[2]"))
 				&& element.isDisplayed(By.xpath("(//div[contains(@class,'containerConvertedItem')])[3]"))) {
 			report.logs("Lead successfully converted to opportunity", "Verification complete", "PASS",
-					"Select template", screenShotType.BROWSER);
+					"convertLeadToOpportunity", screenShotType.BROWSER);
+		}else {
+			Assert.fail("Verification error");
 		}
 
 	}
