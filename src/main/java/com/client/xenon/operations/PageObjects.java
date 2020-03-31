@@ -286,7 +286,8 @@ public class PageObjects extends Xenon {
 
 	}
 
-	public void convertLeadToOpportunity(String leadName) {
+	public void convertLeadToOpportunity(String leadName) throws Exception {
+		By newLead = By.xpath("//button[text()= 'Go to Leads']");
 		
 		element.visibilityOfElementLocated(By.xpath("//div[contains(text(),'" + leadName + "')]/.."));
 		report.logs("Lead Name", "---", "PASS", "convertLeadToOpportunity", screenShotType.BROWSER);
@@ -312,6 +313,12 @@ public class PageObjects extends Xenon {
 				&& element.isDisplayed(By.xpath("(//div[contains(@class,'containerConvertedItem')])[3]"))) {
 			report.logs("Lead successfully converted to opportunity", "Verification complete", "PASS",
 					"convertLeadToOpportunity", screenShotType.BROWSER);
+			
+			
+			element.visibilityOfElementLocated(newLead);
+			report.logs("New Lead Button","---", "PASS", "verificationCheck", screenShotType.BROWSER);
+			actions.click(newLead);
+			
 		}else {
 			Assert.fail("Verification error");
 		}
@@ -387,7 +394,7 @@ public class PageObjects extends Xenon {
 	
 	public void verificationCheck(String leadName)
 	{
-		By newLead = By.xpath("//button[text()= 'Go to Leads']");
+		
 		By searchInput = By.xpath("//input[@name='Lead-search-input']");
 		By searchedResult = By.xpath("(//a[contains(@title, '"+leadName+"')])[1]");
 
@@ -395,12 +402,11 @@ public class PageObjects extends Xenon {
 		
 		try {
 			
-			element.visibilityOfElementLocated(newLead);
-			report.logs("New Lead Button","---", "PASS", "verificationCheck", screenShotType.BROWSER);
-			actions.click(newLead);
+			
 			element.visibilityOfElementLocated(searchInput);
 			report.logs("Search input","---", "PASS", "verificationCheck", screenShotType.BROWSER);
-			actions.clearFieldAndEnterText(searchInput, leadName).clearFieldAndEnterText(searchInput, Keys.ENTER);
+			actions.clearFieldAndEnterText(searchInput, leadName)
+			.enterText(searchInput, Keys.ENTER);
 			
 			timer.pageLoad();
 			timer.pause(5);

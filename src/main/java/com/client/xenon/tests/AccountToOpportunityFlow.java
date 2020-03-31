@@ -79,8 +79,8 @@ public class AccountToOpportunityFlow extends Xenon {
 	
 	@Test(testName = "SFTC-1099", priority = 4, description = "Verification check")
 	public void verificationCheck() throws Exception {
-		sfdcObject.verificationCheck("David Richard");
-		sfdcObject.verificationCheck("DavidRichard");
+		sfdcObject.verificationCheck("LastNamen6r1lMgfo3Dch");
+		sfdcObject.verificationCheck("LastNamen6r1lMgfo3Dch12");
 	}
 
 	@Test(testName = "SFTC-1096", priority = 4, description = "Convert a lead to create account,contact,opportunity")
