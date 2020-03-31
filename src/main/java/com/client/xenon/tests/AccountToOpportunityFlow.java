@@ -5,9 +5,9 @@ import java.util.Random;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+import com.client.xenon.operations.PageObjects;
 import com.xenon.core.framework.Xenon;
 import com.xenon.excel.xlsx.ReadExcel;
-import com.jade.xenon.sfdc.pageobjects.PageObjects;
 
 public class AccountToOpportunityFlow extends Xenon {
 
@@ -18,7 +18,7 @@ public class AccountToOpportunityFlow extends Xenon {
 	
 	@BeforeSuite
 	public void setup() {
-		sfdcObject.login("abhijeet.kulkarni@jadeglobal.com", "Jade@123");
+		sfdcObject.login("abhijeet.kulkarni@jadeglobal.com", "Jade@1234");
 	}
 
 //	@Test(testName = "SFTC-1094", priority = 2, description = "Create Account in Salesforce")

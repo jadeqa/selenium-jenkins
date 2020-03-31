@@ -184,15 +184,15 @@ public class PageObjects extends Xenon {
 		element.elementToBeClickable(
 				By.xpath("//span[contains(text(),'Start Date')]/parent::label/following-sibling::div//a"));
 		element.click(By.xpath("//span[contains(text(),'Start Date')]/parent::label/following-sibling::div//a"));
-		element.elementToBeClickable(By.xpath("//span[contains(text(),'Today')]"));
-		element.click(By.xpath("//span[contains(text(),'Today')]"));
+		element.elementToBeClickable(By.xpath("//button[contains(text(),'Today')]"));
+		element.click(By.xpath("//button[contains(text(),'Today')]"));
 
 		// setting end date
 		element.elementToBeClickable(
 				By.xpath("//span[contains(text(),'End Date')]/parent::label/following-sibling::div//a"));
 		element.click(By.xpath("//span[contains(text(),'End Date')]/parent::label/following-sibling::div//a"));
-		element.elementToBeClickable(By.xpath("//span[contains(text(),'Today')]"));
-		element.click(By.xpath("//span[contains(text(),'Today')]"));
+		element.elementToBeClickable(By.xpath("//button[contains(text(),'Today')]"));
+		element.click(By.xpath("//button[contains(text(),'Today')]"));
 
 		textbox.setValue(By.xpath(
 				"//span[contains(text(),'Expected Revenue in Campaign')]/parent::label/following-sibling::input"),

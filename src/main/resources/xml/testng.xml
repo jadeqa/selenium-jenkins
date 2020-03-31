@@ -3,6 +3,7 @@
 	<test name="DemoAutomation">
 		<classes>
 		<class name="com.client.xenon.tests.P2PTestCases"></class>
+		<class name="com.client.xenon.tests.AccountToOpportunityFlow"></class>
 		</classes>
 	</test>
 </suite>
