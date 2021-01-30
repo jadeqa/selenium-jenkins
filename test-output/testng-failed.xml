@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite verbose="2" name="Failed suite [SALAutoamtion]">
+  <test name="DemoAutomation(failed)">
+    <classes>
+      <class name="com.client.xenon.tests.AccountToOpportunityFlow">
+        <methods>
+          <include name="convertLeadtoOpportunity"/>
+          <include name="cleanup"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- com.client.xenon.tests.AccountToOpportunityFlow -->
+    </classes>
+  </test> <!-- DemoAutomation(failed) -->
+</suite> <!-- Failed suite [SALAutoamtion] -->
