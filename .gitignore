@@ -3,3 +3,5 @@
 /Logs/
 test-output
 Logs
+/*.classpath
+/*.project
