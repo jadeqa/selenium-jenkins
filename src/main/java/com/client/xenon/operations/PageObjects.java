@@ -235,12 +235,17 @@ public class PageObjects extends Xenon {
 				By.xpath("//span[contains(text(),'Expected Response')]/parent::label/following-sibling::input"),
 				expectedReturn);
 		report.logs("Entered Expected Response", "90", "PASS", "createCampaign", screenShotType.BROWSER,"1");
-		timer.pause(3);
-		timer.pause(3);
+		timer.pause(6);
 		element.visibilityOfElementLocated(By.xpath("(//span[text()='Save']/..)[2]"));
 		report.logs("Save Btn", "---", "PASS", "createCampaign", screenShotType.BROWSER,"1");
 		element.click(By.xpath("(//span[text()='Save']/..)[2]"));
 		// element.invisibilityOfElementLocated(By.xpath("(//span[text()='Save']/..)[2]"));
+		
+		// failure condition only if campaign name is empty
+		if(campaignName.isEmpty()) {
+			timer.pause(5);
+			report.logs("These required fields must be completed: Campaign Name", "---", "Fail", "createCampaign", screenShotType.BROWSER,"1");
+		}
 
 /*		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		
