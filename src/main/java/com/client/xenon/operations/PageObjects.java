@@ -21,13 +21,11 @@ import action.core.ActionPerformer;
 public class PageObjects extends Xenon {
 	ActionPerformer actions = new ActionPerformer(driver);
 
-	public void login(String username, String password) {
+	public void login(String username, String password)throws Exception {
 		
 		// setting timeout to check if already logged in
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-		try {
-			
 			driver.get("https://login.salesforce.com/");
 
 			timer.pageLoad();
@@ -39,19 +37,21 @@ public class PageObjects extends Xenon {
 			driver.manage().timeouts().implicitlyWait(Integer.parseInt(Xenon.configProperties.get("DEFAULTTIME")),
 					TimeUnit.SECONDS);
 
-			element.visibilityOfElementLocated(By.name("username"));
-			textbox.setValue(By.name("username"), username);
+//			element.visibilityOfElementLocated(By.name("username"));
+//			textbox.setValue(By.name("username"), username);
+			actions.enterText(By.name("username"), username);
 			report.logs("Enter username", username, "PASS", "Username field", screenShotType.BROWSER,"1");
-			textbox.setValue(By.name("pw"), password);
-			report.logs("Enter password", password, "PASS", "Password field", screenShotType.BROWSER,"1");
-			timer.pause(2);
-			driver.findElement(By.name("pw")).sendKeys(Keys.ENTER);
+//			textbox.setValue(By.name("pw"), password);
+			actions.enterText(By.name("pw"), password).waitTime(2);
+			report.logs("Enter password", "****", "PASS", "Password field", screenShotType.BROWSER,"1");
+//			driver.findElement(By.name("pw")).sendKeys(Keys.ENTER);
+			actions.enterText(By.name("pw"), Keys.ENTER).waitTime(5);
 			report.logs("Clicked on Login button", password, "PASS", "Login button", screenShotType.BROWSER,"1");
 			timer.pageLoad();
-			timer.pause(2);
 			// Verify that login is completed
 			new WebDriverWait(driver, Integer.parseInt(Xenon.configProperties.get("DEFAULTTIME"))).until(ExpectedConditions.titleContains("Home"));
-			timer.pause(2);
+			report.logs("Clicked on Login button", password, "PASS", "Login button", screenShotType.BROWSER,"1");
+			actions.waitTime(5);
 			// element.click(signInButton);
 			/*
 			 * if (element.isDisplayed(By.xpath("(//span[contains(text(),'Home')])[1]"))) {
@@ -59,9 +59,7 @@ public class PageObjects extends Xenon {
 			 * Assert.assertFalse(false,
 			 * "Not logged in successfully / Welcome text is changed"); }
 			 */
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		
 
 	}
 

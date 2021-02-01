@@ -18,7 +18,7 @@ public class AccountToOpportunityFlow extends Xenon {
 	String quoteName="New Quote Nov 2019";
 	
 	@BeforeSuite
-	public void setup() {
+	public void setup() throws Exception{
 		sfdcObject.login("abhijeet.kulkarni@jadeglobal.com", "Abhijeet@123");
 	}
 

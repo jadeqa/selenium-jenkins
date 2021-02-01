@@ -136,8 +136,8 @@
 			<groupId>ActionPerformer</groupId>
 			<artifactId>ActionPerformer</artifactId>
 			<scope>system</scope>
-			<version>0.0.6-SNAPSHOT</version>
-			<systemPath>${basedir}/lib/ActionPerformer-0.0.6-SNAPSHOT.jar</systemPath>
+			<version>1.0</version>
+			<systemPath>${basedir}/lib/ActionPerformer-1.0.jar</systemPath>
 		</dependency>
 
 		<dependency>
