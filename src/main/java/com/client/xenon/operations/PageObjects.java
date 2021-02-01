@@ -330,11 +330,11 @@ public class PageObjects extends Xenon {
 		report.logs("Contact details entered", email + ", " + mobile, "PASS", "createLeadFromCampaign",
 				screenShotType.BROWSER, "1");
 
-		actions.enterText(By.xpath("//span[contains(text(),'Company')]/../following-sibling::input"), mobile)
+		actions.enterText(By.xpath("//span[contains(text(),'Company')]/../following-sibling::input"), companyName)
 				.waitTime(2)
 				.enterText(By.xpath("//span[contains(text(),'Company')]/../following-sibling::input"), Keys.TAB);
 
-		report.logs("Company information entered", "---", "PASS", "createLeadFromCampaign", screenShotType.BROWSER,
+		report.logs("Company information entered", companyName, "PASS", "createLeadFromCampaign", screenShotType.BROWSER,
 				"1");
 		timer.pause(3);
 		actions.getVisibleElement(By.xpath("//button[@title='Save']"));
