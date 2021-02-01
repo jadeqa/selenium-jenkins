@@ -242,13 +242,13 @@ public class PageObjects extends Xenon {
 		element.click(By.xpath("(//span[text()='Save']/..)[2]"));
 		// element.invisibilityOfElementLocated(By.xpath("(//span[text()='Save']/..)[2]"));
 
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+/*		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		
 		if(element.isDisplayed(By.xpath("//*[contains(text(),'These required fields must be completed: Campaign Name')]")))
 		{
 			report.logs("These required fields must be completed: Campaign Name", "---", "Fail", "createCampaign", screenShotType.BROWSER,"1");
 		}
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);*/
 	}
 
 	public void createLeadFromCampaign(String salutation, String firstname, String lastname, String email,
@@ -317,13 +317,13 @@ public class PageObjects extends Xenon {
 	public void convertLeadToOpportunity(String leadName) throws Exception {
 		By newLead = By.xpath("//button[text()= 'Go to Leads']");
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		element.visibilityOfElementLocated(By.xpath("//div[contains(text(),'" + leadName + "')]/.."));
+		element.visibilityOfElementLocated(By.xpath("//h1[contains(.,'" + leadName + "')]"));
 		report.logs("Lead Name", "---", "PASS", "convertLeadToOpportunity", screenShotType.BROWSER,"1");
 		//element.click(By.xpath("//div[contains(text(),'" + leadName + "')]/.."));
 
-		element.elementToBeClickable(By.xpath("//div[contains(text(),'Convert')]/.."));
+		element.elementToBeClickable(By.xpath("//button[contains(text(),'Convert')]/.."));
 		report.logs("Convert Button", "---", "PASS", "convertLeadToOpportunity", screenShotType.BROWSER,"1");
-		element.click(By.xpath("//div[contains(text(),'Convert')]/.."));
+		element.click(By.xpath("//button[contains(text(),'Convert')]/.."));
 
 		element.elementToBeClickable(By
 				.xpath("//div[contains(@class,'modal-footer slds-modal__footer')]//span[contains(text(),'Convert')]"));

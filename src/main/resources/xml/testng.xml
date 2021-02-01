@@ -2,7 +2,7 @@
 <suite name="SALAutoamtion" verbose="2">
 	<test name="DemoAutomation">
 		<classes>
-		<class name="com.client.xenon.tests.P2PTestCases"></class>
+		<!-- <class name="com.client.xenon.tests.P2PTestCases"></class> -->
 		<class name="com.client.xenon.tests.AccountToOpportunityFlow"></class>
 		</classes>
 	</test>
