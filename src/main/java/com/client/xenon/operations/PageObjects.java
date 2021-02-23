@@ -304,22 +304,19 @@ public class PageObjects extends Xenon {
 		timer.pause(5);
 		actions.getVisibleElement(By.xpath("(//a[contains(@title,'New')])[1]"));
 		report.logs("Click New Button", "---", "PASS", "createLeadFromCampaign", screenShotType.BROWSER, "1");
-		actions.click(By.xpath("(//a[contains(@title,'New')])[1]"));
+		actions.waitTime(3).click(By.xpath("(//a[contains(@title,'New')])[1]"));
 
 		actions.getVisibleElement(By.xpath("//a[contains(text(),'--None--')]"));
-		actions.click(By.xpath("//a[contains(text(),'--None--')]"));
+		actions.waitTime(2).click(By.xpath("//a[contains(text(),'--None--')]"));
 
-		actions.click(By.xpath("//a[contains(@title,'" + salutation + "')]"))
-				.waitTime(2)
-				.enterText(By.xpath("//span[contains(text(),'First Name')]/../following-sibling::input"), firstname);
+		actions.click(By.xpath("//a[contains(@title,'" + salutation + "')]"));
+		actions.waitTime(2).enterText(By.xpath("//span[contains(text(),'First Name')]/../following-sibling::input"), firstname);
 
 		report.logs("First Name entered", firstname, "PASS", "createLeadFromCampaign", screenShotType.BROWSER, "1");
 
-		actions.click(By.xpath("//span[contains(text(),'Last Name')]/../following-sibling::input"))
-				.waitTime(2)
-				.enterText(By.xpath("//span[contains(text(),'Last Name')]/../following-sibling::input"), lastname);
-		driver.findElement(By.xpath("//span[contains(text(),'Last Name')]/../following-sibling::input"))
-				.sendKeys(lastname);
+//		actions.click(By.xpath("//span[contains(text(),'Last Name')]/../following-sibling::input"))
+//				.waitTime(2)
+		actions.waitTime(2).enterText(By.xpath("//span[contains(text(),'Last Name')]/../following-sibling::input"), lastname);
 
 		report.logs("Last Name entered", lastname, "PASS", "createLeadFromCampaign", screenShotType.BROWSER, "1");
 
@@ -339,8 +336,7 @@ public class PageObjects extends Xenon {
 		timer.pause(3);
 		actions.getVisibleElement(By.xpath("//button[@title='Save']"));
 		report.logs("Click On Save", "---", "PASS", "createLeadFromCampaign", screenShotType.BROWSER, "1");
-		actions.click(By.xpath("//button[@title='Save']"));
-		timer.pause(5);
+		actions.waitTime(1).click(By.xpath("//button[@title='Save']")).waitTime(5);
 
 		driver.manage()
 				.timeouts()
